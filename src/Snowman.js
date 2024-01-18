@@ -64,6 +64,7 @@ function Snowman({
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
         <button
             key={ltr}
+            id={ltr}
             value={ltr}
             onClick={handleGuess}
             disabled={guessedLetters.has(ltr)}
@@ -73,12 +74,24 @@ function Snowman({
     ));
   }
 
+  const gameStatus = nWrong < maxWrong
+    ? `Number wrong: ${nWrong}`
+    : `You lose!`;
+
+  const word = nWrong < maxWrong
+    ? guessedWord()
+    : answer;
+
+  const guessWordButtons = nWrong < maxWrong
+    ? generateButtons()
+    : "";
+
   return (
       <div className="Snowman">
         <img src={(images)[nWrong]} alt={nWrong} />
-        <p>Number wrong: {nWrong}</p>
-        <p className="Snowman-word">{guessedWord()}</p>
-        <p>{generateButtons()}</p>
+        <p className="Snowman-status">{gameStatus}</p>
+        <p className="Snowman-word">{word}</p>
+        <p>{guessWordButtons}</p>
       </div>
   );
 }

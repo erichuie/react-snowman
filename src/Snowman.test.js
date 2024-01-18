@@ -39,7 +39,7 @@ it("displays 'You lose!' after max guesses and shows correct word", function(){
   fireEvent.click(o);
   fireEvent.click(y);
 
-  expect(container).toContainHTML("You lose!");
+  expect(container.querySelector(".Snowman-status")).toContainHTML("You lose!");
   expect(container).toContainHTML("cat");
   expect(container.querySelector("p button")).not.toBeInTheDocument();
 
