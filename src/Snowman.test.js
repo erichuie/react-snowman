@@ -33,9 +33,13 @@ it("displays 'You lose!' after max guesses and shows correct word", function(){
   const y = container.querySelector("#y");
   const z = container.querySelector("#z");
 
+  expect(container.querySelector(".Snowman-status")).not.toContainHTML("You lose!");
+  expect(container).not.toContainHTML("cat");
+  expect(container.querySelector("p button")).toBeInTheDocument();
 
   //click on letter keys
   fireEvent.click(b);
+  expect(container.querySelector(".Snowman-status")).not.toContainHTML("You lose!");
   fireEvent.click(o);
   fireEvent.click(y);
 
@@ -49,3 +53,5 @@ it("displays 'You lose!' after max guesses and shows correct word", function(){
   expect(container.querySelector("img[alt='3']")).toBeInTheDocument();
 
 });
+
+//make another test for maxWrong=1

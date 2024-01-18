@@ -76,12 +76,25 @@ function Snowman({
     ));
   }
 
-  const gameStatus = nWrong < maxWrong
-    ? ""
-    : `You lose!`;
+  function gameStatus(){
+    if(nWrong < maxWrong){
+      return "";
+    }
+    else{
+      return "You lose!";
+    }
+  }
+
+  // const gameStatus = nWrong < maxWrong
+  //   ? ""
+  //   : `You lose!`;
 
   const word = nWrong < maxWrong
     ? guessedWord()
+    : [];
+
+  const answerUponExceedingGuesses = nWrong < maxWrong
+    ? ""
     : answer;
 
   //if word === answer, display message "You Win!" and hide buttons
@@ -95,15 +108,17 @@ function Snowman({
     : "";
 
   console.log("word:", word);
+  console.log("word joined:", word.join(''));
   console.log("answer:", answer);
 
   return (
       <div className="Snowman">
         <img src={(images)[nWrong]} alt={nWrong} />
         <p className="Snowman-wrong">Number wrong: {nWrong} </p>
-        <p className="Snowman-lose">{gameStatus}</p>
+        <p className="Snowman-lose">{gameStatus()}</p>
         <p className="Snowman-win">{winCheck}</p>
         <p className="Snowman-word">{word}</p>
+        <p className="Snowman-answer">{answerUponExceedingGuesses}</p>
         <p>{guessWordButtons}</p>
       </div>
   );
