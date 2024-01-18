@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { randomWord, ENGLISH_WORDS } from "./words"
 
 import "./Snowman.css";
 import img0 from "./0.png";
@@ -26,13 +27,14 @@ import img6 from "./6.png";
 function Snowman({
       images=[img0, img1, img2, img3, img4, img5, img6],
       words=["apple"],
+      // words=randomWord(ENGLISH_WORDS),
       maxWrong=6,
     }) {
   /** by default, allow 6 guesses and use provided gallows images. */
 
   const [nWrong, setNWrong] = useState(0);
   const [guessedLetters, setGuessedLetters] = useState(() => new Set());
-  const [answer, setAnswer] = useState((words)[0]);
+  const [answer, setAnswer] = useState(words[0]);
 
   /** guessedWord: show current-state of word:
    if guessed letters are {a,p,e}, show "app_e" for "apple"
@@ -75,21 +77,32 @@ function Snowman({
   }
 
   const gameStatus = nWrong < maxWrong
-    ? `Number wrong: ${nWrong}`
+    ? ""
     : `You lose!`;
 
   const word = nWrong < maxWrong
     ? guessedWord()
     : answer;
 
-  const guessWordButtons = nWrong < maxWrong
+  //if word === answer, display message "You Win!" and hide buttons
+
+  const guessWordButtons = nWrong < maxWrong && word.join('') !== answer
     ? generateButtons()
     : "";
+
+  const winCheck = word.join('') === answer
+    ? "You win!"
+    : "";
+
+  console.log("word:", word);
+  console.log("answer:", answer);
 
   return (
       <div className="Snowman">
         <img src={(images)[nWrong]} alt={nWrong} />
-        <p className="Snowman-status">{gameStatus}</p>
+        <p className="Snowman-wrong">Number wrong: {nWrong} </p>
+        <p className="Snowman-lose">{gameStatus}</p>
+        <p className="Snowman-win">{winCheck}</p>
         <p className="Snowman-word">{word}</p>
         <p>{guessWordButtons}</p>
       </div>
